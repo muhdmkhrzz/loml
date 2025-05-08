@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Celebration Messages</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <ul class="nav-links">
+      <li><a href="../my-wishes/mywishes.html">MY WISHES FOR MY PRINCESS ♡♡♡</a></li>
+      <li><a href="../guest-wishes/guest.html" class="active">GUEST WISHES 🎉</a></li>
+      <li><a href="../birthcake/cake.html">BIRTHDAY CAKE 🎂</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Left: Form and messages -->
+    <div class="content-column">
+      <h1>🎉 You're Invited! 🎉</h1>
+      <p>Leave a birthday message below 💌</p>
+
+      <input type="text" id="nameInput" placeholder="Your name" />
+      <textarea id="textInput" rows="50" placeholder="Type your message..."></textarea>
+      <button id="submitBtn">Send Message</button>
+
+      <h2>All Messages</h2>
+      <ul id="messagesList"></ul>
+    </div>
+
+  <!-- Firebase Logic -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAf6sbLslVX6b62fFomB5nXs8VEWrafMBk",
+      authDomain: "loml-c44a0.firebaseapp.com",
+      projectId: "loml-c44a0",
+      storageBucket: "loml-c44a0.appspot.com",
+      messagingSenderId: "912200762612",
+      appId: "1:912200762612:web:2d65703242e7eee06c0aa1"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const messagesRef = db.collection("sharedText");
+
+    const nameInput = document.getElementById("nameInput");
+    const textArea = document.getElementById("textInput");
+    const submitBtn = document.getElementById("submitBtn");
+    const messagesList = document.getElementById("messagesList");
+
+    submitBtn.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      const message = textArea.value.trim();
+
+      if (name && message) {
+        messagesRef.add({
+          name: name,
+          text: message,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        textArea.value = "";
+      } else {
+        alert("Please enter both your name and message.");
+      }
+    });
+
+    messagesRef.orderBy("timestamp", "asc").onSnapshot((snapshot) => {
+      messagesList.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.textContent = `${data.name}: ${data.text}`;
+        messagesList.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
