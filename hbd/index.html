@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Celebration Messages</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles-index.css" />
+
+  <!-- Firebase (if needed) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Music trigger overlay -->
+  <div id="music-start">
+    <p>Tap to start the birthday magic 🎶</p>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="backgroundsound.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">MY WISHES FOR MY PRINCESS ♡♡♡</a></li>
+      <li><a href="guest.html">GUEST WISHES 🎉</a></li>
+      <li><a href="cake.html">BIRTHDAY CAKE 🎂</a></li>
+    </ul>
+  </nav>
+
+  <!-- Layout -->
+  <div class="layout-container">
+    <!-- Left images -->
+    <div class="side-images">
+      <img src="img1.jpg" alt="Left Image 1">
+      <img src="img3.jpg" alt="Left Image 2">
+    </div>
+
+    <!-- Center text box -->
+    <div class="center-box">
+      <h2>Happy Birthday Sayanggg! 💓</h2>
+      <p>
+        It's pretty scary to know how quickly time flies 😔 feels like yesterday i held you in my arm 🥺
+        Watching you grow for sure brings so much joy to my heart ❤️ the only one sister i have and i'll make
+        sure that nobody can hurt you except me hehe 😽 remember, no matter how much you grow or where life
+        takes us, you will always be my little sister, and I will always be here for you, cheering you on through
+        everything. im so excited for all the wonderful adventures and memories that are yet to come. 🤍 with your
+        3 brothers around, you’ll always have a team ready to back you up. But remember, the true strength comes from
+        within you. You are already brave, smart and strong and as you get older, im very certain that you will grow up
+        becoming a strong and powerful woman. me love you hannahmedinaa 🤍.
+      </p>
+    </div>
+
+    <!-- Right images -->
+    <div class="side-images">
+      <img src="img4.jpg" alt="Right Image 1">
+      <img src="img2.jpg" alt="Right Image 2">
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    document.getElementById('music-start').addEventListener('click', function () {
+      // Play music
+      document.getElementById('bg-music').play();
+
+      // Confetti burst
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      // Hide the overlay
+      this.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
